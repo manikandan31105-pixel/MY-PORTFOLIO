@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Portfolio</title>
+</head>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css"
+    integrity="sha512-2SwdPD6INVrV/lHTZbO2nodKhrnDdJK9/kg2XD1r9uGqPo1cUbujc+IYdlYdEErWNu69gVcYgdxlmVmzTWnetw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+<link rel="stylesheet" href="style.css">
+
+<body>
+
+
+    <!-- =============================================================================================
+                                          NAV SCREENS 
+=================================================================================================  -->
+
+
+    <nav id="navbar">
+        <h1 class="logo">Manikandan G</h1>
+
+        <div class="menu-toggle" id="mobile-menu">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+
+        <ul class="nav-list">
+            <li><a href="#h1" class="nav-link">Home</a></li>
+            <li><a href="#h2" class="nav-link">About</a></li>
+            <li><a href="#h3" class="nav-link">Education</a></li>
+            <li><a href="#h4" class="nav-link">Skills</a></li>
+            <li><a href="#h5" class="nav-link">Projects</a></li>
+            <li><a href="#h6" class="nav-link">Experience</a></li>
+            <li><a href="#h7" class="nav-link contact-btn">Contact</a></li>
+        </ul>
+    </nav>
+
+
+    <script>
+        const menu = document.querySelector('#mobile-menu');
+        const navList = document.querySelector('.nav-list');
+        const navbar = document.querySelector('#navbar');
+        let lastScrollY = window.scrollY;
+
+        // 1. Mobile Menu Toggle
+        menu.addEventListener('click', () => {
+            navList.classList.toggle('active');
+            // Animate Hamburger to X
+            menu.classList.toggle('is-active');
+        });
+
+
+    </script>
+
+    <!-- =============================================================================================
+                                          NAME SCREENS 
+================================================================================================= -->
+
+
+    </section>
+    <section class="section1">
+        <canvas id="fireflyCanvas"></canvas>
+
+        <div class="hero-wrapper">
+            <div class="hero-container">
+                <div class="hero-text fade-in-up">
+                    <h6 id="h1">HEY! I'M</h6>
+                    <h1 class="name-title">Manikandan G</h1>
+                    <p class="p1">
+                        I build modern, responsive and interactive websites
+                        using HTML, CSS, JavaScript and Bootstrap.
+                        Passionate about creating beautiful UI/UX experiences.
+                    </p>
+                    <h2>I like <span id="typed"></span></h2>
+                    <div class="social-wrapper">
+                        <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                        <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                        <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+
+                <div class="photo-container fade-in-up">
+                    <div class="profile-photo">
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="btn-container fade-in-up">
+                <a href="#h2" class="resume-btn">About Me</a>
+            </div>
+        </div>
+    </section>
+
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+    <script>
+        var typed = new Typed('#typed', {
+            strings: [
+                'Full stack development',
+                'Front-End Development',
+                'Back-End Development',
+                'Web Development',
+                'Web Design'
+
+            ],
+            typeSpeed: 50,
+            backSpeed: 30,
+            loop: true
+        });
+    </script>
+
+
+
+
+    <script>
+        const canvas = document.getElementById("fireflyCanvas");
+        const ctx = canvas.getContext("2d");
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        let mouse = { x: null, y: null };
+
+        window.addEventListener("mousemove", e => {
+            mouse.x = e.x;
+            mouse.y = e.y;
+        });
+
+        class Dot {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.dx = (Math.random() - 0.5) * 1;
+                this.dy = (Math.random() - 0.5) * 1;
+            }
+
+            move() {
+                this.x += this.dx;
+                this.y += this.dy;
+
+                if (this.x < 0 || this.x > canvas.width) this.dx *= -1;
+                if (this.y < 0 || this.y > canvas.height) this.dy *= -1;
+            }
+
+            draw() {
+                ctx.fillStyle = "white";
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, 2, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        const dots = Array.from({ length: 80 }, () => new Dot());
+
+        function connect() {
+            for (let a = 0; a < dots.length; a++) {
+                for (let b = a; b < dots.length; b++) {
+                    let dx = dots[a].x - dots[b].x;
+                    let dy = dots[a].y - dots[b].y;
+                    let dist = dx * dx + dy * dy;
+
+                    if (dist < 10000) {
+                        ctx.strokeStyle = "rgba(255,255,255,0.1)";
+                        ctx.lineWidth = 1;
+                        ctx.beginPath();
+                        ctx.moveTo(dots[a].x, dots[a].y);
+                        ctx.lineTo(dots[b].x, dots[b].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            dots.forEach(dot => {
+                dot.move();
+                dot.draw();
+            });
+
+            connect();
+            requestAnimationFrame(animate);
+        }
+
+        animate();
+    </script>
+
+    <!-- =============================================================================================
+                                          ABOUT SCREENS 
+================================================================================================= -->
+
+    <section class="section2" id="h2">
+        <div class="about-container">
+            <div class="img-side">
+                <div class="image-wrapper">
+                    <img src="img/vv.jpeg" alt="Manikandan G" class="main-img">
+                    <div class="frame-decoration"></div>
+                </div>
+            </div>
+
+            <div class="content-side">
+                <div class="section-title">
+                    <h6>WHO I AM</h6>
+                    <h1>About <span>Me</span></h1>
+                </div>
+
+                <h3 class="role-title">Full Stack Developer</h3>
+
+                <p class="description">
+                    I am a passionate **Full Stack Developer** dedicated to building scalable,
+                    user-centric web applications. With a solid foundation in both client-side
+                    and server-side technologies, I enjoy turning complex problems into
+                    simple, beautiful, and intuitive digital solutions.
+                </p>
+
+                <ul class="info-list">
+                    <li><span class="label">Name:</span> Manikandan G</li>
+                    <li><span class="label">Location:</span> Tiruppur, India</li>
+                    <li><span class="label">Email:</span> <a
+                            href="mailto:manikandan31105@gmail.com">manikandan31105@gmail.com</a></li>
+                    <li><span class="label">GitHub:</span> <a href="https://github.com/manikandan31105-pixel"
+                            target="_blank">@manikandan-pixel</a></li>
+                </ul>
+
+                <div class="tech-stack">
+                    <span class="tag">HTML5</span>
+                    <span class="tag">CSS3</span>
+                    <span class="tag">JavaScript</span>
+                    <span class="tag">Bootstrap</span>
+                    <span class="tag">Python</span>
+                    <span class="tag">MySQL</span>
+                    <span class="tag">Django</span>
+                </div>
+
+                <a href="Resume/MANIKANDAN G.pdf" class="resume-btn">Download Resume</a>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        window.addEventListener('scroll', revealAbout);
+
+        function revealAbout() {
+            const section = document.querySelector('.section2');
+            const triggerPoint = window.innerHeight / 1.3;
+            const sectionTop = section.getBoundingClientRect().top;
+
+            if (sectionTop < triggerPoint) {
+                section.classList.add('reveal');
+            }
+        }
+
+        // Run once on load just in case the user starts mid-page
+        revealAbout();
+    </script>
+
+
+
+
+    <!-- =============================================================================================
+                                          EDUCATION SCREENS 
+================================================================================================= -->
+
+
+    <section class="journey-section" id="h3">
+        <div class="journey-header">
+            <h1>My <span>Journey</span></h1>
+            <p class="quote">"Education is not the learning of facts, but the training of the mind to think."</p>
+        </div>
+
+        <div class="timeline-container">
+            <div class="timeline-line"></div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-icon">
+                    <i class="fa-solid fa-user-graduate"></i>
+                </div>
+                <div class="timeline-content">
+                    <span class="year">2022 - 2025</span>
+                    <h2>B.Sc Computer Science</h2>
+                    <h3>AG Arts & Science College</h3>
+                    <p class="university">Bharathiar University</p>
+                    <p class="location"><i class="fa-solid fa-location-dot"></i> Tiruppur, India</p>
+                </div>
+            </div>
+
+            <div class="timeline-item reveal">
+                <div class="timeline-icon">
+                    <i class="fa-solid fa-school"></i>
+                </div>
+                <div class="timeline-content">
+                    <span class="year">2025 - 2026</span>
+                    <h2>Profenaa Technology</h2>
+                    <h3>Full Stack Developer</h3>
+                    <p class="location"><i class="fa-solid fa-location-dot"></i> Tiruppur, India</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <script>
+        const observerOptions3 = {
+            threshold: 0.2
+        };
+
+        const observer1 = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                }
+            });
+        }, observerOptions3);
+
+        document.querySelectorAll('.timeline-item').forEach(item => {
+            observer1.observe(item);
+        });
+    </script>
+
+
+    <!-- =============================================================================================
+                                          SKILLS SCREENS 
+================================================================================================= -->
+
+    <div class="container" id="h4">
+
+        <div class="journey-header">
+            <h1>Technical<span> Ecosystem</span></h1>
+            <p class=" quote">"The tools, frameworks, and languages I use to build full-stack applications."</p>
+        </div>
+
+        <div class="grid">
+
+            <div class="card frontend animate-fade-in-up" style="animation-delay: 0.2s;">
+                <div class="card-header">
+                    <div class="icon-wrapper">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path>
+                        </svg>
+                    </div>
+                    <h3><span>Frontend Architecture</span></h3>
+                </div>
+                <div class="badge-container">
+                    <span class="badge">HTML5</span>
+                    <span class="badge">CSS3</span>
+                    <span class="badge">Bootstrap</span>
+                    <span class="badge">JavaScript</span>
+                </div>
+            </div>
+
+            <div class="card backend animate-fade-in-up" style="animation-delay: 0.3s;">
+                <div class="card-header">
+                    <div class="icon-wrapper">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M5 12h14M5 12a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v4a2 2 0 01-2 2M5 12a2 2 0 00-2 2v4a2 2 0 002 2h14a2 2 0 002-2v-4a2 2 0 00-2-2m-2-4h.01M17 16h.01">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3><span>Backend & APIs</span></h3>
+                </div>
+                <div class="badge-container">
+                    <span class="badge">Python</span>
+                    <span class="badge">Django</span>
+                </div>
+            </div>
+
+            <div class="card database animate-fade-in-up" style="animation-delay: 0.4s;">
+                <div class="card-header">
+                    <div class="icon-wrapper">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M4 7v10c0 2.21 3.58 4 8 4s8-1.79 8-4V7M4 7c0 2.21 3.58 4 8 4s8-1.79 8-4M4 7c0-2.21 3.58-4 8-4s8 1.79 8 4m0 5c0 2.21-3.58 4-8 4s-8-1.79-8-4">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3><span>Databases & Caching</span></h3>
+                </div>
+                <div class="badge-container">
+                    <span class="badge">MySQL</span>
+                </div>
+            </div>
+
+            <div class="card devops animate-fade-in-up" style="animation-delay: 0.5s;">
+                <div class="card-header">
+                    <div class="icon-wrapper">
+                        <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2"
+                            viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10">
+                            </path>
+                        </svg>
+                    </div>
+                    <h3><span>DevOps & Tooling</span></h3>
+                </div>
+                <div class="badge-container">
+                    <span class="badge">VS code</span>
+                    <span class="badge">Chrome</span>
+                    <span class="badge">Git / GitHub</span>
+                    <span class="badge">Pycharm</span>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+
+
+
+    <!-- =============================================================================================
+                                          PROJECT SCREENS 
+================================================================================================= -->
+
+    <section class="section4" id="h5">
+        <div class="project-header">
+            <h1>Featured <span>Projects</span></h1>
+            <p>A showcase of my recent web development work</p>
+        </div>
+
+        <div class="project-grid">
+
+            <div class="project-card ">
+                <div class="card-image-wrapper">
+                    <img src="img/hh.png" alt="Portfolio" class="card-img">
+                    <div class="card-overlay">
+                        <div class="tech-tags">
+                            <span>HTML5</span><span>CSS3</span><span>JS</span><span>BOOTSTRAP</span>
+                        </div>
+                        <a href="https://manikandan31105-pixel.github.io/YNDE-TEX/" class="action-btn">
+                            Explore <i class="fa-solid fa-bolt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>YNDE-Tex</h3>
+                    <p>I developed the YNDE-TEX project using HTML, CSS, JavaScript, and Bootstrap. The project is
+                        designed for managing textile and clothing-related products in a simple and responsive web
+                        platform.</p>
+                </div>
+            </div>
+
+
+            <div class="project-card ">
+                <div class="card-image-wrapper">
+                    <img src="img/logomain.webp" alt="Portfolio" class="card-img">
+                    <div class="card-overlay">
+                        <div class="tech-tags">
+                            <span>HTML5</span><span>CSS3</span><span>JS</span><span>BOOTSTRAP</span>
+                        </div>
+                        <a href="https://manikandan31105-pixel.github.io/BORDERLESS-BOUNTY/" class="action-btn">
+                            Explore <i class="fa-solid fa-bolt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Borderless Bounty</h3>
+                    <p>I developed the Borderless Bounty project using HTML, CSS, JavaScript, and BootstrapThe project
+                        is designed to provide a simple and responsive platform for exploring global food, culture, and
+                        travel-related content..</p>
+                </div>
+            </div>
+
+
+            <div class="project-card ">
+                <div class="card-image-wrapper">
+                    <img src="img/kids.png" alt="Portfolio" class="card-img">
+                    <div class="card-overlay">
+                        <div class="tech-tags">
+                            <span>HTML5</span><span>CSS3</span><span>JS</span><span>BOOTSTRAP</span>
+                        </div>
+                        <a href="https://manikandan31105-pixel.github.io/PROFENAA-KIDS-SCHOOL/" class="action-btn">
+                            Explore <i class="fa-solid fa-bolt"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Profeena Kids School</h3>
+                    <p>I developed the Profeena Kids School project using HTML, CSS, JavaScript, and Bootstrap. The
+                        project is designed for managing kids school activities in a simple and user-friendly way. </p>
+                </div>
+            </div>
+
+            <div class="project-card extra-project hidden">
+
+                <div class="card-image-wrapper">
+                    <img src="img/zomato-food-8a6f.jpg" alt="Zomato Clone" class="card-img">
+                    <div class="card-overlay">
+                        <div class="tech-tags">
+                            <span>HTML5</span><span>CSS3</span>
+                        </div>
+                        <a href="https://manikandan31105-pixel.github.io/ZOOMATO/" class="action-btn">
+                            View Design <i class="fa-solid fa-compass"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Food Delivery UI</h3>
+                    <p>Full-stack architectural user interface with highly responsive, fluent ordering workflows.</p>
+                </div>
+            </div>
+
+            <div class="project-card extra-project hidden">
+                <div class="card-image-wrapper">
+                    <img src="img/images (1).jpg" alt="Portfolio" class="card-img">
+                    <div class="card-overlay">
+                        <div class="tech-tags">
+                            <span>HTML5</span><span>CSS3</span><span>JS</span><span>BOOTSTRAP</span>
+                        </div>
+                        <a href="https://manikandan31105-pixel.github.io/PERSONAL-PORTFOLIO/" class="action-btn">
+                            View Design <i class="fa-solid fa-compass"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <h3>Personal Portfolio</h3>
+                    <p>Highly animated, creative portfolio landing engine optimizing 3D spatial properties.</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="view-more-container">
+            <button id="viewMoreBtn" class="view-more-btn">View More Work</button>
+        </div>
+    </section>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            // 1. SCROLL REVEAL (INTERSECTION OBSERVER LOGIC)
+            const observerOptions = {
+                threshold: 0.1,
+                rootMargin: "0px 0px -50px 0px"
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // Fetch index dynamically from elements present for the staggered transition calculation
+                        const index = Array.from(entry.target.parentNode.children).indexOf(entry.target);
+
+                        setTimeout(() => {
+                            entry.target.classList.add('is-visible');
+                        }, index * 100); // 100ms fluid offset lag 
+
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, observerOptions);
+
+            // Track active/visible items on load
+            const activeBoxes = document.querySelectorAll('.projectbox:not(.hidden)');
+            activeBoxes.forEach(box => observer.observe(box));
+
+            // 2. VIEW MORE / LESS TOGGLE LOGIC
+            const viewMoreBtn = document.getElementById('viewMoreBtn');
+            const extraProjects = document.querySelectorAll('.extra-project');
+
+            viewMoreBtn.addEventListener('click', () => {
+                // Toggle the hidden status
+                const isCurrentlyHidden = extraProjects[0].classList.contains('hidden');
+
+                if (isCurrentlyHidden) {
+                    extraProjects.forEach((box, index) => {
+                        box.classList.remove('hidden');
+
+                        // Triggers structural reflow allowing browser rendering engine to trace animation
+                        void box.offsetWidth;
+
+                        setTimeout(() => {
+                            box.classList.add('is-visible');
+                        }, index * 100);
+                    });
+                    viewMoreBtn.textContent = "View Less";
+                } else {
+                    extraProjects.forEach((box) => {
+                        box.classList.remove('is-visible');
+                        box.classList.add('hidden');
+                    });
+                    viewMoreBtn.textContent = "View More Work";
+
+                    // Optional: Smoothly snap scroll position context back to head of module
+                    document.getElementById('h5').scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+    </script>
+
+
+
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const globalObserver = new IntersectionObserver((entries) => {
+                entries.forEach((entry) => {
+                    if (entry.isIntersecting) {
+                        // Find index to set custom stagger timing offsets dynamically
+                        const containerChildren = Array.from(entry.target.parentNode.children);
+                        const itemIndex = containerChildren.indexOf(entry.target);
+
+                        setTimeout(() => {
+                            entry.target.style.opacity = "1";
+                            entry.target.style.transform = "translateY(0)";
+                        }, itemIndex * 150);
+
+                        globalObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.15 });
+
+            // Instantly bind tracking elements onto standard document execution tree
+            document.querySelectorAll('.project-card, .glow-tile, .modern-form-box').forEach(el => {
+                el.style.transition = "opacity 0.8s cubic-bezier(0.25, 1, 0.5, 1), transform 0.8s cubic-bezier(0.25, 1, 0.5, 1)";
+                globalObserver.observe(el);
+            });
+        });
+    </script>
+
+
+    <!-- =============================================================================================
+                                          EXPERIENCE SCREENS 
+================================================================================================= -->
+
+    <div class="scroll-progress"></div>
+
+    <section class="experience-container" id="h6">
+        <div class="work-header">
+            <h1>Work <span>Experience</span></h1>
+            <p>My professional journey and corporate contributions.</p>
+        </div>
+
+        <div class="timeline-wrapper">
+            <div class="timeline-card left">
+
+                <div class="card-inner">
+                    <span class="tag">Present</span>
+                    <h2>Self Employed</h2>
+                    <p class="location">Full-stack Developer - Profenaa Technology</p>
+                    <p class="duration">Nav 2025 — Present</p>
+
+                    <ul class="achievements">
+                        <li> In building responsive web applications.</li>
+                        <li> Skilled in frontend/backend development.</li>
+                        <li> API integration, and building responsive web applications.</li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+
+            <div class="timeline-card right">
+                <div class="card-inner">
+                    <span class="tag">2025</span>
+                    <h2>Vizweb solutions</h2>
+                    <p class="location">Front-End Developer - Internship</p>
+                    <p class="duration">Dec 2025 — Aprl 2026</p>
+                    <ul class="achievements">
+                        <li>Intern with hands-on experience Web applications.</li>
+                        <li>Skilled in frontend/backend development.</li>
+                        <li>Database management with strong problem-solving and teamwork abilities..</li>
+                    </ul>
+                </div>
+            </div>
+
+
+
+
+
+    </section>
+
+    <script>
+        // Intersection Observer for Reveal
+        const observer5 = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('reveal');
+                }
+            });
+        }, { threshold: 0.3 });
+
+        document.querySelectorAll('.timeline-card').forEach(card => {
+            observer5.observe(card);
+        });
+
+        // Top Progress Bar Logic
+        window.addEventListener('scroll', () => {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector(".scroll-progress").style.width = scrolled + "%";
+        });
+    </script>
+
+
+
+
+
+
+    <!-- =============================================================================================
+                                          CONTACT SCREENS 
+================================================================================================= -->
+    <section class="premium-section" id="h7">
+        <div class="section-header">
+
+            <h1>Get In <span>Touch</span></h1>
+            <p>Let’s design and build something beautiful together</p>
+        </div>
+
+        <div class="contact-layout">
+            <div class="info-sidebar">
+                <div class="glow-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-phone"></i></div>
+                    <div>
+                        <h4>Call Direct</h4>
+                        <a href="tel:+916382284954">+91 6382284954</a>
+                    </div>
+                </div>
+
+                <div class="glow-tile">
+                    <div class="tile-icon"><i class="fa-solid fa-envelope"></i></div>
+                    <div>
+                        <h4>Drop an Email</h4>
+                        <a href="mailto:manikandan31105@gmail.com">manikandan31105@gmail.com</a>
+                    </div>
+                </div>
+
+                <div class="glow-tile">
+                    <div class="tile-icon"><i class="fa-brands fa-github"></i></div>
+                    <div>
+                        <h4>Open Source</h4>
+                        <a href="https://github.com/manikandan31105-pixel" target="_blank"
+                            rel="noopener">@manikandan31105-pixel</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modern-form-box">
+                <form class="interactive-form">
+                    <div class="input-group">
+                        <input type="text" id="name" required placeholder=" ">
+                        <label for="name">Your Full Name</label>
+                        <div class="input-line"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <input type="email" id="email" required placeholder=" ">
+                        <label for="email">Your Email Address</label>
+                        <div class="input-line"></div>
+                    </div>
+
+                    <div class="input-group">
+                        <textarea id="msg" rows="4" required placeholder=" "></textarea>
+                        <label for="msg">Project Context / Message</label>
+                        <div class="input-line"></div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">
+                        Send Secure Message
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <!-- =============================================================================================
+                                          FOOTER SCREENS 
+=================================================================================================   -->
+
+    <footer class="footer-section">
+        <div class="footer-container">
+            <div class="footer-box">
+                <h2 class="footer-title">About <span>Me</span></h2>
+                <p class="footer-desc">
+                    Passionate about crafting digital experiences through HTML, CSS, and JavaScript.
+                    Focused on building scalable, user-centric web applications.
+                </p>
+                <div class="social-wrapper">
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="https://linkedin.com" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+                    <a href="#"><i class="fa-brands fa-whatsapp"></i></a>
+                </div>
+            </div>
+
+            <div class="footer-box">
+                <h2 class="footer-title">Quick <span>Links</span></h2>
+                <ul class="footer-links">
+                    <li><a href="#h1">Home</a></li>
+                    <li><a href="#h2">About</a></li>
+                    <li><a href="#h3">Education</a></li>
+                    <li><a href="#h4">Skills</a></li>
+                    <li><a href="#h5">Projects</a></li>
+                    <li><a href="#h6">Experience</a></li>
+                    <li><a href="#h7">Contact</a></li>
+                </ul>
+            </div>
+
+            <div class="footer-box">
+                <h2 class="footer-title">Hire <span>Me</span></h2>
+                <ul class="contact-info">
+                    <li>
+                        <i class="fa-solid fa-phone"></i>
+                        <span>+91 6382284954</span>
+                    </li>
+                    <li>
+                        <i class="fa-solid fa-envelope"></i>
+                        <span>manikandan31105@gmail.com</span>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="footer-bottom">
+            <p>&copy; 2026 <span>Manikandan</span> | All Rights Reserved</p>
+        </div>
+    </footer>
+    <script>
+        const footerObserver = new IntersectionObserver((entries) => {
+            entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                    // Find all boxes inside the footer
+                    const boxes = entry.target.querySelectorAll('.footer-box');
+
+                    boxes.forEach((box, index) => {
+                        setTimeout(() => {
+                            box.style.opacity = "1";
+                            box.style.transform = "translateY(0)";
+                        }, index * 200); // 200ms stagger between columns
+                    });
+
+                    footerObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.2 });
+
+        // Observe the whole container to trigger the staggered child animations
+        const footerContainer = document.querySelector('.footer-container');
+        if (footerContainer) {
+            // Set initial state for columns
+            document.querySelectorAll('.footer-box').forEach(box => {
+                box.style.opacity = "0";
+                box.style.transform = "translateY(30px)";
+                box.style.transition = "all 0.8s cubic-bezier(0.2, 1, 0.3, 1)";
+            });
+            footerObserver.observe(footerContainer);
+        }
+    </script>
+
+</body>
+
+</html>
